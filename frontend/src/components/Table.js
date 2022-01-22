@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -27,10 +29,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
 
 const rows = [
   {
@@ -58,28 +56,74 @@ const rows = [
     label: ["landscape"],
   },
 ];
+const chiplabel = (label) => {
+  let arr = [];
+  label.map((lbl) => {
+    switch (lbl) {
+      case "electrical":
+        arr.push(
+          <Chip
+            key="electrical"
+            label="Electrical"
+            size="small"
+            color="primary"
+          />
+        );
+        break;
+      case "mechanical":
+        arr.push(
+          <Chip
+            key="mechanical"
+            label="Mechanical"
+            size="small"
+            color="secondary"
+          />
+        );
+        break;
+      case "landscape":
+        arr.push(
+          <Chip
+            key="landscape"
+            label="Landscape"
+            size="small"
+            color="success"
+          />
+        );
+        break;
+      case "plumbing":
+        arr.push(
+          <Chip key="plumbing" label="Plumbing" size="small" color="warning" />
+        );
+        break;
+      default:
+        break;
+    }
+  });
 
-export default function Tables() {
+  return <div>{arr}</div>;
+};
+const Tables = (props) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 500 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="right">Calories</StyledTableCell>
-            <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-            <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
+            <StyledTableCell align="right">Title</StyledTableCell>
+            <StyledTableCell align="right">Priority</StyledTableCell>
+            <StyledTableCell align="right">Label</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {props.issues.map((row) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell align="right">{row.title}</StyledTableCell>
               <StyledTableCell align="right">{row.priority}</StyledTableCell>
-              <StyledTableCell align="right">{row.label}</StyledTableCell>
+              <TableCell align="right">{chiplabel(row.label)}</TableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-}
+};
+export default Tables;

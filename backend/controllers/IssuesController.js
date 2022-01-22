@@ -22,7 +22,7 @@ const search_label = (data_priority, label) => {
 const search = (priority, label) => {
   let ret = [];
 
-  if (priority === "") {
+  if (priority === "all") {
     ret = search_label(data, label);
   } else {
     let ret_temp = [];
