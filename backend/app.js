@@ -14,11 +14,11 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, {
-  useNewUrlParser: true,
+// mongoose.connect(uri, {
+//   useNewUrlParser: true,
 
-  useUnifiedTopology: true,
-});
+//   useUnifiedTopology: true,
+// });
 
 // const connection = mongoose.connection;
 // connection.once("open", () => {
