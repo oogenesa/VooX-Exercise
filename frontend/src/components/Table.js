@@ -29,33 +29,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+const upper = (str) => {
+  var splitStr = str.toLowerCase().split(" ");
+  for (var i = 0; i < splitStr.length; i++) {
+    splitStr[i] =
+      splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+  }
+  return splitStr.join(" ");
+};
 
-const rows = [
-  {
-    _id: "61eb92be578bd73b6ead500c",
-    title: "AEORA",
-    priority: "mid",
-    label: ["landscape"],
-  },
-  {
-    _id: "61eb92be092948dbc7cd9d7b",
-    title: "SONGBIRD",
-    priority: "mid",
-    label: ["mechanical", "landscape"],
-  },
-  {
-    _id: "61eb92bed0cd21bb46c81cc3",
-    title: "INSECTUS",
-    priority: "mid",
-    label: ["landscape", "plumbing"],
-  },
-  {
-    _id: "61eb92be4141ba2be85c59b6",
-    title: "XINWARE",
-    priority: "mid",
-    label: ["landscape"],
-  },
-];
 const chiplabel = (label) => {
   let arr = [];
   label.map((lbl) => {
@@ -116,8 +98,12 @@ const Tables = (props) => {
         <TableBody>
           {props.issues.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell align="right">{row.title}</StyledTableCell>
-              <StyledTableCell align="right">{row.priority}</StyledTableCell>
+              <StyledTableCell align="right">
+                {upper(row.title)}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {upper(row.priority)}
+              </StyledTableCell>
               <TableCell align="right">{chiplabel(row.label)}</TableCell>
             </StyledTableRow>
           ))}

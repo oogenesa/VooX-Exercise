@@ -1,13 +1,12 @@
 import axios from "axios";
 
 const API_URL = "http://localhost:5000/";
+// const API_URL = "https://calm-ocean-03341.herokuapp.com/";
 
 export const get_all_issues = () => {
   let url = API_URL + "issues";
   return axios
-    .get(url, {
-      withCredentials: true,
-    })
+    .get(url)
     .then((response) => {
       return response.data;
     })
@@ -20,7 +19,7 @@ export const get_param_issues = (req) => {
   let url = API_URL + "issues_param";
   return axios
     .post(url, req, {
-      withCredentials: true,
+      headers: { "Content-Type": "application/json" },
     })
     .then((response) => {
       return response.data;

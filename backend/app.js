@@ -8,10 +8,13 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const corsOptions = {
-  origin: ["http://192.168.1.205:3000", "http://localhost:3000"],
+  origin: [
+    "https://localhost:3000",
+    "https://shrouded-lowlands-36290.herokuapp.com/",
+  ],
   credentials: true,
 };
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 const uri = process.env.ATLAS_URI;
 // mongoose.connect(uri, {
@@ -24,7 +27,21 @@ const uri = process.env.ATLAS_URI;
 // connection.once("open", () => {
 //   console.log("MongoDB database connection established successfully");
 // });
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
 
+//   next();
+// });
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, OPTION");
+  next();
+});
 app.use(routes);
 app.listen(port, () => {
   console.log(`Server is runnin on port : ${port}`);
